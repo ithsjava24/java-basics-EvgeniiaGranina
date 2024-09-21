@@ -1,13 +1,8 @@
 package org.example;
 
-import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
 
 public class App {
     private static final TimPris[] price = new TimPris[24];
@@ -41,19 +36,11 @@ public class App {
                     sorting();
                     break;
                 case "4":
+                    bestChargingTime();
                     break;
                 case "e":
                     return;
             }
-
-//            if (choice.equalsIgnoreCase("e")) {
-//                return;
-//            } else if (choice.equals("1")) {
-//                input(sc);
-//            } else if (choice.equalsIgnoreCase("2")) {
-//                minMaxMean();
-//            }
-//            else if (choice.equalsIgnoreCase("5")) ;
         }
     }
 
@@ -120,8 +107,25 @@ public class App {
         }
     }
 
-    record ValueTimeHour(String hour, int prise) {
+    record ValueTimeHour(String hour, int prise) {}
 
+    private static void bestChargingTime() {
+        int bestStartTime = 0;
+        int minCost = Integer.MAX_VALUE;
+
+        for (int i = 0; i < price.length; i++) {
+            int currentSum = 0;
+            for (int j = 0; j < 4; j++) {
+                currentSum += price[(i + j) % price.length].getPris();
+            }
+            if (currentSum < minCost) {
+                minCost = currentSum;
+                bestStartTime = i;
+            }
+        }
+
+        float meanPrise = minCost / 4.f;
+        System.out.printf("Påbörja laddning klockan %s\nMedelpris 4h: %.1f öre/kWh\n", price[bestStartTime].getTim().substring(0, 2), meanPrise);
     }
 
 }
