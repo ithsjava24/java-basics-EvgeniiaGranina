@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class App {
@@ -90,7 +91,7 @@ public class App {
         }
         System.out.printf("Lägsta pris: %s, %d öre/kWh\n", min.tim, min.pris);
         System.out.printf("Högsta pris: %s, %d öre/kWh\n", max.tim, max.pris);
-        System.out.printf("Medelpris: %.2f öre/kWh\n", count > 0 ? (double) sum / count : 0.0d);
+        System.out.printf(Locale.of("sv", "SE"), "Medelpris: %.2f öre/kWh\n", count > 0 ? (double) sum / count : 0.0d);
 
     }
 
@@ -125,7 +126,7 @@ public class App {
         }
 
         float meanPrise = minCost / 4.f;
-        System.out.printf("Påbörja laddning klockan %s\nMedelpris 4h: %.1f öre/kWh\n", price[bestStartTime].getTim().substring(0, 2), meanPrise);
+        System.out.printf(Locale.of("sv", "SE"), "Påbörja laddning klockan %s\nMedelpris 4h: %.1f öre/kWh\n", price[bestStartTime].getTim().substring(0, 2), meanPrise);
     }
 
 }
